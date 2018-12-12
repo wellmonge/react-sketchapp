@@ -1,29 +1,51 @@
 import * as React from 'react';
-import { render, Artboard, Text } from 'react-sketchapp';
+import * as PropTypes from 'prop-types';
+import { render, Page, Artboard, Text, View } from 'react-sketchapp';
 
-const Document = () => (
-  <Artboard
-    name="Swatches"
-    style={{
-      flexDirection: 'row',
-      flexWrap: 'wrap',
-      width: (96 + 8) * 4,
-    }}
-  >
-    <Text>TESTE</Text>
-  </Artboard>
+const Document = ({ colors }) => (
+  <Page>
+    {Object.keys(colors).map(color => (
+      <Artboard
+        name={color}
+        style={{
+          flex: 1,
+          background: 'transparent',
+          flexDirection: 'row',
+          flexWrap: 'wrap',
+          width: 1440,
+          margin: 100,
+          height: 900,
+        }}
+      >
+        <View
+          style={{
+            flex: 1,
+
+            backgroundColor: 'green',
+            flexDirection: 'row',
+            flexWrap: 'wrap',
+            width: 100,
+            height: 50,
+          }}
+          onClick={() => {
+            // eslint-disable-next-line no-unused-expressions
+            <Text>sdsads</Text>;
+          }}
+          name="rere"
+        />
+      </Artboard>
+    ))}
+  </Page>
 );
+
+Document.propTypes = {
+  colors: PropTypes.objectOf(PropTypes.string).isRequired,
+};
 
 export default () => {
   const colorList = {
-    Haus: '#F3F4F4',
-    Night: '#333',
-    Sur: '#96DBE4',
-    'Sur Dark': '#24828F',
-    Peach: '#EFADA0',
-    'Peach Dark': '#E37059',
-    Pear: '#93DAAB',
-    'Pear Dark': '#2E854B',
+    PageOne: '#F3F4F4',
+    PageTwo: '#333',
   };
 
   render(<Document colors={colorList} />, context.document.currentPage());
