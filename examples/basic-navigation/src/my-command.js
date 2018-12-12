@@ -2,11 +2,11 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { render, Page, Artboard, Text, View } from 'react-sketchapp';
 
-const Document = ({ colors }) => (
+const Document = ({ props }) => (
   <Page>
-    {Object.keys(colors).map(color => (
+    {Object.keys(props).map(prop => (
       <Artboard
-        name={color}
+        name={prop}
         style={{
           flex: 1,
           background: 'transparent',
@@ -20,33 +20,34 @@ const Document = ({ colors }) => (
         <View
           style={{
             flex: 1,
-
             backgroundColor: 'green',
             flexDirection: 'row',
             flexWrap: 'wrap',
             width: 100,
             height: 50,
           }}
-          onClick={() => {
-            // eslint-disable-next-line no-unused-expressions
-            <Text>sdsads</Text>;
-          }}
-          name="rere"
-        />
+          name={prop}
+        >
+          <Text>{prop.name}</Text>;
+        </View>
       </Artboard>
     ))}
   </Page>
 );
 
 Document.propTypes = {
-  colors: PropTypes.objectOf(PropTypes.string).isRequired,
+  props: PropTypes.objectOf(PropTypes.object).isRequired,
 };
 
 export default () => {
-  const colorList = {
-    PageOne: '#F3F4F4',
-    PageTwo: '#333',
+  const props = {
+    PageOne: {
+      name: 'Screen1',
+    },
+    PageTwo: {
+      name: 'Screen2',
+    },
   };
 
-  render(<Document colors={colorList} />, context.document.currentPage());
+  render(<Document props={props} />, context.document.currentPage());
 };
